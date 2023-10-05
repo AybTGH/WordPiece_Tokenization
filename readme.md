@@ -4,9 +4,9 @@ WordPiece is the tokenization algorithm Google developed to pretrain BERT. It ha
 
 ## How it works?
 the diagram below shows the steps to fit the model based on a corpus. 
-![Screenshot](Data\wordpiece_diagram.png)
+![Screenshot](Data/wordpiece_diagram.png)
 
-
+check wordpiece.ipynb for more details about each step. 
 ## Usage
 
 ```python 
