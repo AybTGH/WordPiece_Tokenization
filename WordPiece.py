@@ -137,7 +137,7 @@ class wordpiece:
         """
         splits_final = self.splits_initial
         vocab_final = self.vocab_initial
-        while len(self.vocab_initial) < vocab_size:
+        while len(vocab_final) < vocab_size:
             scores = self.compute_pair_scores(splits_final)
             best_pair, max_score = "", None
             for pair, score in scores.items():
