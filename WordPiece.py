@@ -1,6 +1,6 @@
 from transformers import AutoTokenizer
 from collections import defaultdict
-
+import re
 
 class wordpiece: 
     """
@@ -12,6 +12,7 @@ class wordpiece:
 
     Methods:
     """
+
     
     def __init__(self, corpus, vocab_size=100) -> None:
         self.corpus = corpus
@@ -20,6 +21,31 @@ class wordpiece:
         self.splits_initial = self.split_list()
         self.vocab_initial = self.initial_vocab()
         self.vocab_final, self.splits_final= self.update_vocab(vocab_size)
+        
+    def normalize(self, corpus):
+        """
+        This function takes a text corpus as input and performs several text normalization steps.
+
+        Args:
+        corpus (str): The input text corpus to be normalized.
+
+        Returns:
+        str: The normalized text corpus after applying the following steps:
+            1. Convert all text to lowercase.
+            2. Remove any numbers from the text.
+            3. Remove all punctuation except for words and spaces.
+            4. Strip leading and trailing white spaces.
+        """
+        #loewrcase
+        corpus = corpus.lower()
+        # remove numbers
+        corpus = re.sub(r'\d+','',corpus)
+        # remove all punctuation except words and space
+        corpus = re.sub(r'[^\w\s]','', corpus) 
+        # remove white spaces
+        corpus = corpus.strip()
+
+        return corpus
     
     def pre_tokenize(self):
         """
@@ -30,7 +56,8 @@ class wordpiece:
         """
         tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
         word_freqs = defaultdict(int)
-        words_with_offsets = tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(self.corpus.strip())
+        corpus = self.normalize(self.corpus)
+        words_with_offsets = tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(corpus)
         new_words = [word for word, offset in words_with_offsets]
         for word in new_words:
             word_freqs[word] += 1
