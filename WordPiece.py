@@ -12,7 +12,6 @@ class wordpiece:
 
     Methods:
     """
-
     
     def __init__(self, corpus, vocab_size=100) -> None:
         self.corpus = corpus
@@ -220,16 +219,9 @@ class wordpiece:
         return sum(encoded_words, [])
 
 if __name__ == "__main__":
-    corpus ='''
-        Object raspberrypi functools dict kwargs. Gevent raspberrypi functools. Dunder raspberrypi decorator dict didn't lambda zip import pyramid, she lambda iterate?
-        Kwargs raspberrypi diversity unit object gevent. Import fall integration decorator unit django yield functools twisted. Dunder integration decorator he she future.
-        Python raspberrypi community pypy. Kwargs integration beautiful test reduce gil python closure. Gevent he integration generator fall test kwargs raise didn't visor he itertools...
-        Reduce integration coroutine bdfl he python. Cython didn't integration while beautiful list python didn't nit!
-        Object fall diversity 2to3 dunder script. Python fall for: integration exception dict kwargs dunder pycon. Import raspberrypi beautiful test import six web. Future 
-        integration mercurial self script web. Return raspberrypi community test she stable.
-        Django raspberrypi mercurial unit import yield raspberrypi visual rocksdahouse. Dunder raspberrypi mercurial list reduce class test scipy helmet zip?
-    '''
-    tokenize = wordpiece(corpus)
-    text = "This is a simple demo of WordPiece tokenization. exception! "
-    print(tokenize.tokenize(text))
+    with open('Data\Harry_Potter1.txt') as file:
+        corpus = file.readlines()
+        tokenize = wordpiece(''.join(corpus),vocab_size = 200)
+        text = "It took quite a while for them all to get off the platform. A wizened old guard was up by the ticket barrier, letting them go through the gate in twos and threes so they didn't attract attention by all bursting out of a solid wall at once and alarming the Muggles. "
+        print(tokenize.tokenize(text))
     
